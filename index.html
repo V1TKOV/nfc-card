@@ -17,9 +17,9 @@
     --btn-bg: rgba(255,255,255,.65);
     --btn-hover: rgba(255,255,255,.95);
     --btn-border: rgba(26,26,34,.07);
-    
-    /* Новая палитра: Синий -> Голубой -> Бирюзовый */
-    --accent1: #2563eb; 
+
+    /* Палитра: Синий -> Голубой -> Бирюзовый */
+    --accent1: #2563eb;
     --accent2: #0ea5e9;
     --accent3: #14b8a6;
     --shadow: 0 8px 32px rgba(14,165,233,.10);
@@ -35,7 +35,7 @@
       --btn-bg: rgba(255,255,255,.045);
       --btn-hover: rgba(255,255,255,.09);
       --btn-border: rgba(255,255,255,.07);
-      
+
       /* Темная тема: Светло-синий -> Циан -> Изумрудный */
       --accent1: #3b82f6;
       --accent2: #22d3ee;
@@ -142,13 +142,8 @@
     text-align: center;
     color: var(--text2);
     font-size: 13.5px;
-    margin: 7px 0 26px;
+    margin: 7px 0 24px;
     display: flex; align-items: center; justify-content: center; gap: 7px;
-  }
-  .subtitle::before, .subtitle::after {
-    content: '';
-    width: 26px; height: 1px;
-    background: var(--btn-border);
   }
   .pulse {
     display: inline-block;
@@ -164,28 +159,114 @@
     100% { box-shadow: 0 0 0 0 rgba(52,211,153,0); }
   }
 
-  /* Кнопки */
-  .btn {
+  /* Главная кнопка */
+  .btn.primary {
     display: flex; align-items: center; gap: 14px;
     width: 100%;
-    padding: 12px 14px;
+    background: linear-gradient(120deg, var(--accent1), var(--accent2) 55%, var(--accent3));
+    background-size: 180% 180%;
+    border: none;
+    border-radius: 18px;
+    color: #fff;
+    font-weight: 700;
+    font-size: 16px;
+    padding: 15px 16px;
+    margin-bottom: 14px;
+    cursor: pointer;
+    font-family: inherit;
+    text-align: left;
+    box-shadow: 0 8px 22px var(--glow);
+    animation: gradientShift 6s ease infinite;
+    transition: transform .18s ease, box-shadow .18s ease;
+  }
+  @keyframes gradientShift {
+    0%,100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+  .btn.primary:hover { transform: translateY(-2px) scale(1.01); box-shadow: 0 12px 28px var(--glow); background: linear-gradient(120deg, var(--accent1), var(--accent2) 55%, var(--accent3)); background-size: 180% 180%; }
+  .btn.primary:active { transform: translateY(0) scale(.98); }
+  .btn.primary .icon {
+    width: 42px; height: 42px; flex: 0 0 42px;
+    border-radius: 13px;
+    display: flex; align-items: center; justify-content: center;
+    background: rgba(255,255,255,.22);
+    color: #fff;
+    transition: transform .18s ease;
+  }
+  .btn.primary:hover .icon { transform: scale(1.08) rotate(-4deg); }
+  .btn.primary .icon svg { width: 21px; height: 21px; fill: currentColor; }
+  .btn.primary small { display: block; color: rgba(255,255,255,.8); font-size: 12px; margin-top: 2px; font-weight: 400; }
+
+  /* Сетка плиток */
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+  .tile {
+    display: flex; flex-direction: column; align-items: center; gap: 9px;
+    padding: 16px 8px 13px;
+    background: var(--btn-bg);
+    border: 1px solid var(--btn-border);
+    border-radius: 18px;
+    color: var(--text);
+    font-size: 13.5px;
+    font-weight: 500;
+    text-decoration: none;
+    cursor: pointer;
+    text-align: center;
+    font-family: inherit;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    transition: transform .18s ease, background .18s ease, box-shadow .18s ease;
+  }
+  .tile:hover { background: var(--btn-hover); transform: translateY(-2px); box-shadow: 0 6px 18px rgba(0,0,0,.08); }
+  .tile:active { transform: translateY(0) scale(.97); }
+  .tile .icon {
+    width: 46px; height: 46px;
+    border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    color: #fff;
+    box-shadow: 0 4px 10px rgba(0,0,0,.15);
+    transition: transform .18s ease;
+  }
+  .tile:hover .icon { transform: scale(1.1) rotate(-4deg); }
+  .tile .icon svg { width: 23px; height: 23px; fill: currentColor; }
+  .tile span:last-child { line-height: 1.25; }
+
+  /* Фирменные цвета иконок */
+  .ic-call   { background: linear-gradient(135deg, #34d399, #059669); }
+  .ic-mail   { background: linear-gradient(135deg, #fbbf24, #f59e0b); }
+  .ic-tg     { background: linear-gradient(135deg, #38bdf8, #229ed9); }
+  .ic-wa     { background: linear-gradient(135deg, #4ade80, #22c55e); }
+  .ic-money  { background: linear-gradient(135deg, #fb923c, #ea580c); }
+  .ic-geo    { background: linear-gradient(135deg, #f87171, #ef4444); }
+  .ic-home   { background: linear-gradient(135deg, #818cf8, #4f46e5); }
+
+  /* Кнопка дома на всю ширину */
+  .btn.wide {
+    display: flex; align-items: center; gap: 14px;
+    width: 100%;
+    padding: 13px 16px;
     margin-bottom: 10px;
     background: var(--btn-bg);
     border: 1px solid var(--btn-border);
     border-radius: 18px;
     color: var(--text);
-    font-size: 15.5px;
+    font-size: 15px;
+    font-weight: 500;
     text-decoration: none;
     cursor: pointer;
-    transition: transform .18s ease, background .18s ease, box-shadow .18s ease;
     font-family: inherit;
     text-align: left;
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
+    transition: transform .18s ease, background .18s ease, box-shadow .18s ease;
   }
-  .btn:hover { background: var(--btn-hover); transform: translateY(-2px); box-shadow: 0 6px 18px rgba(0,0,0,.08); }
-  .btn:active { transform: translateY(0) scale(.98); }
-  .btn .icon {
+  .btn.wide:hover { background: var(--btn-hover); transform: translateY(-2px); box-shadow: 0 6px 18px rgba(0,0,0,.08); }
+  .btn.wide:active { transform: translateY(0) scale(.98); }
+  .btn.wide .icon {
     width: 42px; height: 42px; flex: 0 0 42px;
     border-radius: 13px;
     display: flex; align-items: center; justify-content: center;
@@ -193,58 +274,14 @@
     box-shadow: 0 4px 10px rgba(0,0,0,.15);
     transition: transform .18s ease;
   }
-  .btn:hover .icon { transform: scale(1.08) rotate(-4deg); }
-  .btn .icon svg { width: 21px; height: 21px; fill: currentColor; }
-  .btn span:last-child { flex: 1; }
-  .btn small { display: block; color: var(--text2); font-size: 12px; margin-top: 2px; font-weight: 400; }
-
-  /* Фирменные цвета иконок */
-  .ic-call   { background: linear-gradient(135deg, #34d399, #059669); }
-  .ic-mail   { background: linear-gradient(135deg, #fbbf24, #f59e0b); }
-  .ic-tg     { background: linear-gradient(135deg, #38bdf8, #229ed9); }
-  .ic-wa     { background: linear-gradient(135deg, #4ade80, #22c55e); }
-  .ic-money  { background: linear-gradient(135deg, #fb923c, #ea580c); } /* Оранжевый вместо фиолетового */
-  .ic-geo    { background: linear-gradient(135deg, #f87171, #ef4444); } /* Классический красный вместо розового */
-  .ic-home   { background: linear-gradient(135deg, #818cf8, #4f46e5); }
-
-  /* Главная кнопка */
-  .btn.primary {
-    background: linear-gradient(120deg, var(--accent1), var(--accent2) 55%, var(--accent3));
-    background-size: 180% 180%;
-    border: none;
-    color: #fff;
-    font-weight: 700;
-    font-size: 16px;
-    padding: 15px 16px;
-    box-shadow: 0 8px 22px var(--glow);
-    animation: gradientShift 6s ease infinite;
-  }
-  @keyframes gradientShift {
-    0%,100% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-  }
-  .btn.primary:hover { transform: translateY(-2px) scale(1.01); box-shadow: 0 12px 28px var(--glow); background: linear-gradient(120deg, var(--accent1), var(--accent2) 55%, var(--accent3)); background-size: 180% 180%; }
-  .btn.primary .icon { background: rgba(255,255,255,.22); box-shadow: none; }
-  .btn.primary small { color: rgba(255,255,255,.8); }
-
-  /* Заголовки секций */
-  .section-title {
-    display: flex; align-items: center; gap: 10px;
-    font-size: 11px; font-weight: 700;
-    text-transform: uppercase; letter-spacing: .14em;
-    color: var(--text2);
-    margin: 24px 6px 12px;
-  }
-  .section-title::after {
-    content: '';
-    flex: 1; height: 1px;
-    background: var(--btn-border);
-  }
+  .btn.wide:hover .icon { transform: scale(1.08) rotate(-4deg); }
+  .btn.wide .icon svg { width: 21px; height: 21px; fill: currentColor; }
+  .btn.wide small { display: block; color: var(--text2); font-size: 12px; margin-top: 2px; font-weight: 400; }
 
   /* QR */
   .qr-wrap {
     display: flex; flex-direction: column; align-items: center;
-    margin-top: 28px; padding-top: 24px;
+    margin-top: 20px; padding-top: 22px;
     border-top: 1px solid var(--btn-border);
   }
   .qr-wrap p { font-size: 13px; color: var(--text2); margin-bottom: 14px; text-align: center; }
@@ -282,6 +319,7 @@
   .d7 { animation-delay: .47s; } .d8 { animation-delay: .54s; }
   .d9 { animation-delay: .61s; } .d10 { animation-delay: .68s; }
 </style>
+<base target="_blank">
 </head>
 <body>
 
@@ -297,48 +335,44 @@
     <span>Добавить в контакты<small>Имя, фамилия, телефон, почта</small></span>
   </button>
 
-  <div class="section-title fade-up d5">Связаться</div>
+  <div class="grid">
+    <a class="tile fade-up d5" href="tel:+37378407287">
+      <span class="icon ic-call"><svg viewBox="0 0 24 24"><path d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.02-.24 11.36 11.36 0 0 0 3.57.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1 11.36 11.36 0 0 0 .57 3.57 1 1 0 0 1-.25 1.02Z"/></svg></span>
+      <span>Позвонить</span>
+    </a>
 
-  <a class="btn fade-up d5" href="tel:+37378407287">
-    <span class="icon ic-call"><svg viewBox="0 0 24 24"><path d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.02-.24 11.36 11.36 0 0 0 3.57.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1 11.36 11.36 0 0 0 .57 3.57 1 1 0 0 1-.25 1.02Z"/></svg></span>
-    <span>Позвонить<small>+373 78 407 287</small></span>
-  </a>
+    <a class="tile fade-up d5" href="mailto:vitm36844@gmail.com">
+      <span class="icon ic-mail"><svg viewBox="0 0 24 24"><path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2Zm0 4-8 5-8-5V6l8 5 8-5Z"/></svg></span>
+      <span>Почта</span>
+    </a>
 
-  <a class="btn fade-up d6" href="mailto:vitm36844@gmail.com">
-    <span class="icon ic-mail"><svg viewBox="0 0 24 24"><path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2 2V6a2 2 0 0 0-2-2Zm0 4-8 5-8-5V6l8 5 8-5Z"/></svg></span>
-    <span>Написать на почту<small>vitm36844@gmail.com</small></span>
-  </a>
+    <a class="tile fade-up d6" href="https://t.me/Vitk0V" target="_blank" rel="noopener">
+      <span class="icon ic-tg"><svg viewBox="0 0 24 24"><path d="M21.9 4.6 18.8 19c-.2 1-.8 1.2-1.7.8l-4.6-3.4-2.2 2.1c-.3.3-.5.5-1 .5l.3-4.6L18 6.9c.4-.3-.1-.5-.6-.2L7.2 13.2 2.7 11.8c-1-.3-1-1 .2-1.4l18-7c.8-.3 1.5.2 1 1.2Z"/></svg></span>
+      <span>Telegram</span>
+    </a>
 
-  <a class="btn fade-up d6" href="https://t.me/Vitk0V" target="_blank" rel="noopener">
-    <span class="icon ic-tg"><svg viewBox="0 0 24 24"><path d="M21.9 4.6 18.8 19c-.2 1-.8 1.2-1.7.8l-4.6-3.4-2.2 2.1c-.3.3-.5.5-1 .5l.3-4.6L18 6.9c.4-.3-.1-.5-.6-.2L7.2 13.2 2.7 11.8c-1-.3-1-1 .2-1.4l18-7c.8-.3 1.5.2 1 1.2Z"/></svg></span>
-    <span>Telegram<small>@Vitk0V</small></span>
-  </a>
+    <a class="tile fade-up d6" href="https://wa.me/37378407287" target="_blank" rel="noopener">
+      <span class="icon ic-wa"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.4 14.1c-.2.7-1.3 1.3-1.9 1.3-.5.1-1.1.1-1.8-.1-.4-.1-1-.3-1.7-.6-3-1.3-4.9-4.3-5.1-4.5-.1-.2-1.2-1.6-1.2-3s.7-2.1 1-2.4c.2-.3.5-.4.7-.4h.5c.2 0 .4 0 .6.5s.7 1.8.8 1.9c.1.1.1.3 0 .5l-.4.6c-.2.2-.4.4-.2.8.2.4 1 1.6 2.1 2.6 1.4 1.3 2.6 1.7 3 1.8.4.2.6.1.8-.1l.9-1.1c.2-.3.4-.2.7-.1l1.8.9c.3.1.5.2.5.4 0 0 .1.6-.2 1.3Z"/></svg></span>
+      <span>WhatsApp</span>
+    </a>
 
-  <a class="btn fade-up d7" href="https://wa.me/37378407287" target="_blank" rel="noopener">
-    <span class="icon ic-wa"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.4 14.1c-.2.7-1.3 1.3-1.9 1.3-.5.1-1.1.1-1.8-.1-.4-.1-1-.3-1.7-.6-3-1.3-4.9-4.3-5.1-4.5-.1-.2-1.2-1.6-1.2-3s.7-2.1 1-2.4c.2-.3.5-.4.7-.4h.5c.2 0 .4 0 .6.5s.7 1.8.8 1.9c.1.1.1.3 0 .5l-.4.6c-.2.2-.4.4-.2.8.2.4 1 1.6 2.1 2.6 1.4 1.3 2.6 1.7 3 1.8.4.2.6.1.8-.1l.9-1.1c.2-.3.4-.2.7-.1l1.8.9c.3.1.5.2.5.4 0 0 .1.6-.2 1.3Z"/></svg></span>
-    <span>WhatsApp<small>+373 78 407 287</small></span>
-  </a>
+    <a class="tile fade-up d7" href="https://mia-qr.bnm.md/1/m/BNM/AGRbcfca880b0184d258a83a8d54f41d606" target="_blank" rel="noopener">
+      <span class="icon ic-money"><svg viewBox="0 0 24 24"><path d="M12 2 2 7v2h20V7Zm-10 9v8H2v3h20v-3h-2v-8Zm4 0h4v4H6Zm6 0h4v8h-4ZM4 13v6h2v-6Zm0 0"/></svg></span>
+      <span>Перевести деньги</span>
+    </a>
 
-  <div class="section-title fade-up d8">Деньги</div>
+    <button class="tile fade-up d7" onclick="shareFoundLocation()">
+      <span class="icon ic-geo"><svg viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7Zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5Z"/></svg></span>
+      <span>Карта найдена<br>здесь </span>
+    </button>
+  </div>
 
-  <a class="btn fade-up d8" href="https://mia-qr.bnm.md/1/m/BNM/AGRbcfca880b0184d258a83a8d54f41d606" target="_blank" rel="noopener">
-    <span class="icon ic-money"><svg viewBox="0 0 24 24"><path d="M12 2 2 7v2h20V7Zm-10 9v8H2v3h20v-3h-2v-8Zm4 0h4v4H6Zm6 0h4v8h-4ZM4 13v6h2v-6Zm0 0"/></svg></span>
-    <span>Перевести деньги<small>mia · на номер +373 78 407 287</small></span>
-  </a>
-
-  <div class="section-title fade-up d9">Геолокация</div>
-
-  <button class="btn fade-up d9" onclick="shareFoundLocation()">
-    <span class="icon ic-geo"><svg viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7Zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5Z"/></svg></span>
-    <span>📍 Я нашёл эту карту здесь<small>Отправить координаты Максиму на почту</small></span>
-  </button>
-
-  <a class="btn fade-up d10" href="https://www.google.com/maps/search/?api=1&query=Strada+Maria+Dr%C4%83gan+22%2F1%2C+Chi%C8%99in%C4%83u" target="_blank" rel="noopener">
+  <a class="btn wide fade-up d8" href="https://www.google.com/maps/search/?api=1&query=Strada+Maria+Dr%C4%83gan+22%2F1%2C+Chi%C8%99in%C4%83u" target="_blank" rel="noopener">
     <span class="icon ic-home"><svg viewBox="0 0 24 24"><path d="m12 3 9 8h-3v9h-4v-6h-4v6H6v-9H3Z"/></svg></span>
     <span>Дом (вернуть карту)<small>Strada Maria Drăgan 22/1, Chișinău</small></span>
   </a>
 
-  <div class="qr-wrap fade-up d10">
+  <div class="qr-wrap fade-up d9">
     <p>Поделиться этой визиткой<br>(отсканируйте QR-код)</p>
     <div id="qrcode"></div>
   </div>
