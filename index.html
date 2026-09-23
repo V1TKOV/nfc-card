@@ -17,11 +17,13 @@
     --btn-bg: rgba(255,255,255,.65);
     --btn-hover: rgba(255,255,255,.95);
     --btn-border: rgba(26,26,34,.07);
-    --accent1: #6366f1;
-    --accent2: #8b5cf6;
-    --accent3: #ec4899;
-    --shadow: 0 8px 32px rgba(80,90,180,.10);
-    --glow: rgba(139,92,246,.25);
+    
+    /* Новая палитра: Синий -> Голубой -> Бирюзовый */
+    --accent1: #2563eb; 
+    --accent2: #0ea5e9;
+    --accent3: #14b8a6;
+    --shadow: 0 8px 32px rgba(14,165,233,.10);
+    --glow: rgba(14,165,233,.25);
   }
   @media (prefers-color-scheme: dark) {
     :root {
@@ -33,11 +35,13 @@
       --btn-bg: rgba(255,255,255,.045);
       --btn-hover: rgba(255,255,255,.09);
       --btn-border: rgba(255,255,255,.07);
-      --accent1: #818cf8;
-      --accent2: #a78bfa;
-      --accent3: #f472b6;
+      
+      /* Темная тема: Светло-синий -> Циан -> Изумрудный */
+      --accent1: #3b82f6;
+      --accent2: #22d3ee;
+      --accent3: #34d399;
       --shadow: 0 8px 32px rgba(0,0,0,.45);
-      --glow: rgba(139,92,246,.35);
+      --glow: rgba(34,211,238,.35);
     }
   }
   * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -116,7 +120,7 @@
   .avatar {
     position: absolute; inset: 0;
     border-radius: 50%;
-    background: linear-gradient(160deg, #312e81, #1e1b4b);
+    background: linear-gradient(160deg, #0f172a, #020617);
     border: 4px solid transparent;
     background-clip: padding-box;
     color: #fff;
@@ -199,8 +203,8 @@
   .ic-mail   { background: linear-gradient(135deg, #fbbf24, #f59e0b); }
   .ic-tg     { background: linear-gradient(135deg, #38bdf8, #229ed9); }
   .ic-wa     { background: linear-gradient(135deg, #4ade80, #22c55e); }
-  .ic-money  { background: linear-gradient(135deg, #c084fc, #9333ea); }
-  .ic-geo    { background: linear-gradient(135deg, #fb7185, #e11d48); }
+  .ic-money  { background: linear-gradient(135deg, #fb923c, #ea580c); } /* Оранжевый вместо фиолетового */
+  .ic-geo    { background: linear-gradient(135deg, #f87171, #ef4444); } /* Классический красный вместо розового */
   .ic-home   { background: linear-gradient(135deg, #818cf8, #4f46e5); }
 
   /* Главная кнопка */
@@ -301,7 +305,7 @@
   </a>
 
   <a class="btn fade-up d6" href="mailto:vitm36844@gmail.com">
-    <span class="icon ic-mail"><svg viewBox="0 0 24 24"><path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2Zm0 4-8 5-8-5V6l8 5 8-5Z"/></svg></span>
+    <span class="icon ic-mail"><svg viewBox="0 0 24 24"><path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2 2V6a2 2 0 0 0-2-2Zm0 4-8 5-8-5V6l8 5 8-5Z"/></svg></span>
     <span>Написать на почту<small>vitm36844@gmail.com</small></span>
   </a>
 
