@@ -2,267 +2,286 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
-<meta name="theme-color" content="#f2f2f7" media="(prefers-color-scheme: light)">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0b0b0f" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#eef0f5" media="(prefers-color-scheme: light)">
 <title>Максим Витков — цифровая визитка</title>
 <style>
-  /* Системные цвета iOS */
   :root {
-    --bg: #f2f2f7;
-    --cell: #ffffff;
-    --cell-border: rgba(0,0,0,.06);
-    --card: rgba(255,255,255,.82);
-    --text: #000000;
-    --text2: rgba(60,60,67,.6);
-    --hairline: rgba(0,0,0,.08);
+    --bg: #eef0f5;
+    --card: rgba(255,255,255,.75);
+    --card-border: rgba(255,255,255,.9);
+    --text: #1a1a22;
+    --text2: #6b7280;
+    --btn-bg: rgba(255,255,255,.65);
+    --btn-hover: rgba(255,255,255,.95);
+    --btn-border: rgba(26,26,34,.07);
 
-    --blue: #007aff;
-    --green: #34c759;
-    --teal: #30b0c7;
-    --mint: #00c7be;
-    --orange: #ff9500;
-    --red: #ff3b30;
-    --purple: #af52de;
-    --gray: #8e8e93;
-
-    --radius-cell: 16px;
-    --shadow-card: 0 1px 3px rgba(0,0,0,.06), 0 12px 32px rgba(0,0,0,.07);
+    /* Палитра: Синий -> Голубой -> Бирюзовый */
+    --accent1: #2563eb;
+    --accent2: #0ea5e9;
+    --accent3: #14b8a6;
+    --shadow: 0 8px 32px rgba(14,165,233,.10);
+    --glow: rgba(14,165,233,.25);
   }
   @media (prefers-color-scheme: dark) {
     :root {
-      --bg: #000000;
-      --cell: #1c1c1e;
-      --cell-border: rgba(255,255,255,.07);
-      --card: rgba(28,28,30,.78);
-      --text: #ffffff;
-      --text2: rgba(235,235,245,.6);
-      --hairline: rgba(255,255,255,.09);
+      --bg: #0b0b10;
+      --card: rgba(24,24,32,.72);
+      --card-border: rgba(255,255,255,.08);
+      --text: #f3f4f8;
+      --text2: #9aa0ad;
+      --btn-bg: rgba(255,255,255,.045);
+      --btn-hover: rgba(255,255,255,.09);
+      --btn-border: rgba(255,255,255,.07);
 
-      --blue: #0a84ff;
-      --green: #30d158;
-      --teal: #40cbe0;
-      --mint: #63e6e2;
-      --orange: #ff9f0a;
-      --red: #ff453a;
-      --purple: #bf5af2;
-      --gray: #8e8e93;
-
-      --shadow-card: 0 1px 3px rgba(0,0,0,.3), 0 12px 32px rgba(0,0,0,.35);
+      /* Темная тема: Светло-синий -> Циан -> Изумрудный */
+      --accent1: #3b82f6;
+      --accent2: #22d3ee;
+      --accent3: #34d399;
+      --shadow: 0 8px 32px rgba(0,0,0,.45);
+      --glow: rgba(34,211,238,.35);
     }
   }
-
   * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
   body {
-    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     background: var(--bg);
     color: var(--text);
     min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 24px 14px;
+    padding: 32px 16px;
+    position: relative;
+    overflow-x: hidden;
   }
 
-  /* Карточка — frosted glass */
-  .card {
-    width: 100%;
-    max-width: 400px;
-    background: var(--card);
-    border: 1px solid var(--cell-border);
-    border-radius: 24px;
-    box-shadow: var(--shadow-card);
-    backdrop-filter: blur(24px) saturate(180%);
-    -webkit-backdrop-filter: blur(24px) saturate(180%);
-    padding: 28px 16px 16px;
-  }
-
-  /* Монограмма как в Контактах iOS */
-  .avatar {
-    width: 88px; height: 88px;
+  /* Фоновые пятна */
+  body::before, body::after {
+    content: '';
+    position: fixed;
     border-radius: 50%;
-    background: linear-gradient(180deg, #aeaeb2, #8e8e93);
-    border: 3px solid var(--cell);
-    box-shadow: 0 2px 8px rgba(0,0,0,.12);
+    filter: blur(90px);
+    z-index: 0;
+    pointer-events: none;
+  }
+  body::before {
+    width: 420px; height: 420px;
+    top: -140px; left: -120px;
+    background: radial-gradient(circle, var(--accent2), transparent 65%);
+    opacity: .35;
+  }
+  body::after {
+    width: 380px; height: 380px;
+    bottom: -120px; right: -100px;
+    background: radial-gradient(circle, var(--accent3), transparent 65%);
+    opacity: .22;
+  }
+
+  .card {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 430px;
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: 28px;
+    box-shadow: var(--shadow);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    padding: 34px 22px 24px;
+    height: fit-content;
+  }
+
+  /* Аватар с градиентным кольцом */
+  .avatar-wrap {
+    position: relative;
+    width: 104px; height: 104px;
+    margin: 0 auto 18px;
+  }
+  .avatar-wrap::before {
+    content: '';
+    position: absolute; inset: -4px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent1), var(--accent2), var(--accent3));
+    animation: spin 6s linear infinite;
+  }
+  .avatar-wrap::after {
+    content: '';
+    position: absolute; inset: -14px;
+    border-radius: 50%;
+    background: var(--glow);
+    filter: blur(22px);
+    z-index: -1;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .avatar {
+    position: absolute; inset: 0;
+    border-radius: 50%;
+    background: linear-gradient(160deg, #0f172a, #020617);
+    border: 4px solid transparent;
+    background-clip: padding-box;
     color: #fff;
     display: flex; align-items: center; justify-content: center;
-    font-size: 34px; font-weight: 600; letter-spacing: .01em;
-    margin: 0 auto 14px;
+    font-size: 36px; font-weight: 700; letter-spacing: .02em;
   }
 
   h1 {
-    font-size: 26px;
-    font-weight: 700;
-    letter-spacing: -.02em;
+    font-size: 27px;
     text-align: center;
-    color: var(--text);
+    font-weight: 800;
+    letter-spacing: -.02em;
+    background: linear-gradient(120deg, var(--text) 40%, var(--accent2));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
   .subtitle {
     text-align: center;
     color: var(--text2);
-    font-size: 14px;
-    margin: 5px 0 22px;
-    display: flex; align-items: center; justify-content: center; gap: 6px;
+    font-size: 13.5px;
+    margin: 7px 0 24px;
+    display: flex; align-items: center; justify-content: center; gap: 7px;
   }
   .pulse {
-    width: 8px; height: 8px;
+    display: inline-block;
+    width: 7px; height: 7px;
     border-radius: 50%;
-    background: var(--green);
-    animation: pulse 2.4s ease infinite;
+    background: #34d399;
+    box-shadow: 0 0 0 0 rgba(52,211,153,.5);
+    animation: pulse 2s infinite;
   }
   @keyframes pulse {
-    0%,100% { opacity: 1; }
-    50% { opacity: .35; }
+    0% { box-shadow: 0 0 0 0 rgba(52,211,153,.45); }
+    70% { box-shadow: 0 0 0 8px rgba(52,211,153,0); }
+    100% { box-shadow: 0 0 0 0 rgba(52,211,153,0); }
   }
 
-  /* Главная кнопка — iOS filled button */
-  .btn.primary {
-    display: flex; align-items: center; justify-content: center; gap: 10px;
-    width: 100%;
-    background: var(--blue);
-    border: none;
-    border-radius: var(--radius-cell);
-    color: #fff;
-    font-size: 17px;
-    font-weight: 600;
-    padding: 15px 16px;
-    margin-bottom: 12px;
-    cursor: pointer;
-    font-family: inherit;
-    transition: filter .15s ease, transform .1s ease;
-  }
-  .btn.primary:active { filter: brightness(.82); transform: scale(.985); }
-  .btn.primary svg { width: 20px; height: 20px; fill: currentColor; }
-
-  /* Плитки — стиль Пункта управления */
+  /* Сетка плиток */
   .grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 10px;
-    margin-bottom: 12px;
+    margin-bottom: 10px;
   }
   .tile {
-    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px;
-    min-height: 118px;
-    padding: 14px 6px;
-    background: var(--cell);
-    border: 1px solid var(--cell-border);
-    border-radius: 20px;
+    display: flex; flex-direction: column; align-items: center; gap: 9px;
+    padding: 16px 8px 13px;
+    background: var(--btn-bg);
+    border: 1px solid var(--btn-border);
+    border-radius: 18px;
     color: var(--text);
-    font-size: 13px;
-    font-weight: 600;
-    letter-spacing: -.01em;
+    font-size: 13.5px;
+    font-weight: 500;
     text-decoration: none;
     cursor: pointer;
     text-align: center;
     font-family: inherit;
-    transition: filter .15s ease, transform .1s ease;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    transition: transform .18s ease, background .18s ease, box-shadow .18s ease;
   }
-  .tile:active { filter: brightness(.85); transform: scale(.97); }
+  .tile:hover { background: var(--btn-hover); transform: translateY(-2px); box-shadow: 0 6px 18px rgba(0,0,0,.08); }
+  .tile:active { transform: translateY(0) scale(.97); }
   .tile .icon {
-    width: 48px; height: 48px;
+    width: 46px; height: 46px;
     border-radius: 14px;
     display: flex; align-items: center; justify-content: center;
     color: #fff;
-    box-shadow: inset 0 1px 0 rgba(255,255,255,.22), 0 2px 6px rgba(0,0,0,.12);
+    box-shadow: 0 4px 10px rgba(0,0,0,.15);
+    transition: transform .18s ease;
   }
-  .tile .icon svg { width: 24px; height: 24px; fill: currentColor; }
-  .tile span:last-child { line-height: 1.2; }
+  .tile:hover .icon { transform: scale(1.1) rotate(-4deg); }
+  .tile .icon svg { width: 23px; height: 23px; fill: currentColor; }
+  .tile span:last-child { line-height: 1.25; }
 
-  /* Ячейка на всю ширину — как в Настройках iOS */
+  /* Кнопки на всю ширину (строкой) */
   .btn.wide {
-    display: flex; align-items: center; gap: 12px;
+    display: flex; align-items: center; gap: 14px;
     width: 100%;
-    padding: 10px 12px;
-    margin-bottom: 0;
-    background: var(--cell);
-    border: 1px solid var(--cell-border);
-    border-radius: var(--radius-cell);
+    padding: 13px 16px;
+    margin-bottom: 10px;
+    background: var(--btn-bg);
+    border: 1px solid var(--btn-border);
+    border-radius: 18px;
     color: var(--text);
-    font-size: 17px;
+    font-size: 15px;
     font-weight: 500;
     text-decoration: none;
     cursor: pointer;
     font-family: inherit;
     text-align: left;
-    transition: filter .15s ease, transform .1s ease;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    transition: transform .18s ease, background .18s ease, box-shadow .18s ease;
   }
-  .btn.wide:active { filter: brightness(.85); transform: scale(.985); }
+  .btn.wide:hover { background: var(--btn-hover); transform: translateY(-2px); box-shadow: 0 6px 18px rgba(0,0,0,.08); }
+  .btn.wide:active { transform: translateY(0) scale(.98); }
   .btn.wide .icon {
-    width: 34px; height: 34px; flex: 0 0 34px;
-    border-radius: 9px;
+    width: 42px; height: 42px; flex: 0 0 42px;
+    border-radius: 13px;
     display: flex; align-items: center; justify-content: center;
     color: #fff;
-    box-shadow: inset 0 1px 0 rgba(255,255,255,.22);
+    box-shadow: 0 4px 10px rgba(0,0,0,.15);
+    transition: transform .18s ease;
   }
-  .btn.wide .icon svg { width: 19px; height: 19px; fill: currentColor; }
-  .btn.wide small { display: block; color: var(--text2); font-size: 13px; margin-top: 1px; font-weight: 400; }
-  .btn.wide .chev {
-    margin-left: auto;
-    color: var(--text2);
-    font-size: 22px;
-    font-weight: 400;
-    line-height: 1;
-  }
+  .btn.wide:hover .icon { transform: scale(1.08) rotate(-4deg); }
+  .btn.wide .icon svg { width: 21px; height: 21px; fill: currentColor; }
+  .btn.wide small { display: block; color: var(--text2); font-size: 12px; margin-top: 2px; font-weight: 400; }
 
-  /* Цвета иконок — палитра iOS */
-  .ic-call    { background: var(--green); }
-  .ic-mail    { background: var(--blue); }
-  .ic-tg      { background: var(--teal); }
-  .ic-wa      { background: var(--mint); }
-  .ic-money   { background: var(--orange); }
-  .ic-geo     { background: var(--red); }
-  .ic-home    { background: var(--purple); }
+  /* Фирменные цвета иконок */
+  .ic-call    { background: linear-gradient(135deg, #34d399, #059669); }
+  .ic-mail    { background: linear-gradient(135deg, #fbbf24, #f59e0b); }
+  .ic-tg      { background: linear-gradient(135deg, #38bdf8, #229ed9); }
+  .ic-wa      { background: linear-gradient(135deg, #4ade80, #22c55e); }
+  .ic-money   { background: linear-gradient(135deg, #fb923c, #ea580c); }
+  .ic-geo     { background: linear-gradient(135deg, #f87171, #ef4444); }
+  .ic-contact { background: linear-gradient(135deg, #38bdf8, #2563eb); }
+  .ic-home    { background: linear-gradient(135deg, #818cf8, #4f46e5); }
 
-  /* Toast — iOS-стиль */
+  /* Toast */
   .toast {
-    position: fixed; left: 50%; bottom: 28px;
+    position: fixed; left: 50%; bottom: 26px;
     transform: translateX(-50%) translateY(90px);
-    background: rgba(30,30,32,.92);
-    color: #fff;
-    padding: 12px 18px;
-    border-radius: 16px;
-    font-size: 15px;
-    font-weight: 500;
+    background: var(--text); color: var(--bg);
+    padding: 12px 20px; border-radius: 14px;
+    font-size: 14px; font-weight: 500;
     opacity: 0;
-    transition: all .3s cubic-bezier(.2,.9,.3,1.2);
+    transition: all .3s cubic-bezier(.2,.9,.3,1.3);
     pointer-events: none;
     max-width: 88vw; text-align: center;
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    box-shadow: 0 10px 30px rgba(0,0,0,.25);
     z-index: 100;
   }
   .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
-  /* Плавное появление */
-  .fade-up { animation: fadeUp .5s cubic-bezier(.2,.8,.3,1) backwards; }
+  /* Появление элементов */
+  .fade-up { animation: fadeUp .55s ease backwards; }
   @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(14px); }
+    from { opacity: 0; transform: translateY(16px); }
     to { opacity: 1; transform: translateY(0); }
   }
-  .d1 { animation-delay: .04s; } .d2 { animation-delay: .10s; }
-  .d3 { animation-delay: .16s; } .d4 { animation-delay: .22s; }
-  .d5 { animation-delay: .28s; } .d6 { animation-delay: .34s; }
-  .d7 { animation-delay: .40s; } .d8 { animation-delay: .46s; }
-
-  @media (prefers-reduced-motion: reduce) {
-    .fade-up, .pulse { animation: none; }
-  }
+  .d1 { animation-delay: .05s; } .d2 { animation-delay: .12s; }
+  .d3 { animation-delay: .19s; } .d4 { animation-delay: .26s; }
+  .d5 { animation-delay: .33s; } .d6 { animation-delay: .40s; }
+  .d7 { animation-delay: .47s; } .d8 { animation-delay: .54s; }
+  .d9 { animation-delay: .61s; }
 </style>
 <base target="_blank">
 </head>
 <body>
 
 <div class="card">
-  <div class="avatar fade-up d1">МВ</div>
+  <div class="avatar-wrap fade-up d1">
+    <div class="avatar">МВ</div>
+  </div>
   <h1 class="fade-up d2">Максим Витков</h1>
   <p class="subtitle fade-up d3"><span class="pulse"></span>Цифровая визитка · NFC-карта</p>
 
-  <button class="btn primary fade-up d4" onclick="downloadVCard()">
-    <svg viewBox="0 0 24 24"><path d="M12 2a5 5 0 1 1 0 10 5 5 0 0 1 0-10Zm0 12c4.42 0 8 2.24 8 5v3H4v-3c0-2.76 3.58-5 8-5Z"/></svg>
-    <span>Добавить в контакты</span>
+  <button class="btn wide fade-up d4" onclick="downloadVCard()">
+    <span class="icon ic-contact"><svg viewBox="0 0 24 24"><path d="M12 2a5 5 0 1 1 0 10 5 5 0 0 1 0-10Zm0 12c4.42 0 8 2.24 8 5v3H4v-3c0-2.76 3.58-5 8-5Z"/></svg></span>
+    <span>Добавить в контакты<small>Имя, фамилия, телефон, почта</small></span>
   </button>
 
   <div class="grid">
@@ -293,14 +312,13 @@
 
     <button class="tile fade-up d7" onclick="shareFoundLocation()">
       <span class="icon ic-geo"><svg viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7Zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5Z"/></svg></span>
-      <span>Карта найдена здесь</span>
+      <span>Карта найдена<br>здесь</span>
     </button>
   </div>
 
   <a class="btn wide fade-up d8" href="https://www.google.com/maps/search/?api=1&query=Strada+Maria+Dr%C4%83gan+22%2F1%2C+Chi%C8%99in%C4%83u" target="_blank" rel="noopener">
     <span class="icon ic-home"><svg viewBox="0 0 24 24"><path d="m12 3 9 8h-3v9h-4v-6h-4v6H6v-9H3Z"/></svg></span>
     <span>Вернуть карточку владельцу<small>Strada Maria Drăgan 22/1, Chișinău</small></span>
-    <span class="chev">›</span>
   </a>
 </div>
 
@@ -360,6 +378,7 @@
           if (!res.ok) throw new Error();
           showToast('✅ Отправлено! Максим получил местоположение');
         } catch (e) {
+          // Если отправка не сработала — предлагаем поделиться вручную
           if (navigator.share) {
             navigator.share({ title: 'Карта найдена здесь', text: 'Отправьте это Максиму:', url: mapsUrl }).catch(() => {});
           } else {
@@ -385,4 +404,3 @@
 
 </body>
 </html>
-
