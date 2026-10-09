@@ -9,29 +9,26 @@
 
 <style>
 :root {
-  --system-background: #f2f2f7;
-  --grouped-background: #ffffff;
-  --label: #1c1c1e;
-  --secondary-label: #6c6c70;
-  --separator: rgba(60, 60, 67, .18);
+  --bg: #f2f2f7;
+  --card: #fff;
+  --text: #1c1c1e;
+  --muted: #6c6c70;
+  --line: rgba(60, 60, 67, .18);
   --blue: #007aff;
   --green: #34c759;
   --orange: #ff9f0a;
   --red: #ff3b30;
-  --shadow: 0 18px 50px rgba(0, 0, 0, .10);
 }
 @media (prefers-color-scheme: dark) {
   :root {
-    --system-background: #000000;
-    --grouped-background: #1c1c1e;
-    --label: #ffffff;
-    --secondary-label: #98989d;
-    --separator: rgba(255, 255, 255, .15);
+    --bg: #000;
+    --card: #1c1c1e;
+    --text: #fff;
+    --muted: #98989d;
+    --line: rgba(255, 255, 255, .15);
     --blue: #0a84ff;
     --green: #30d158;
-    --orange: #ff9f0a;
     --red: #ff453a;
-    --shadow: 0 18px 50px rgba(0, 0, 0, .45);
   }
 }
 * {
@@ -39,59 +36,66 @@
   margin: 0;
   -webkit-tap-highlight-color: transparent;
 }
-html {
-  background: var(--system-background);
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
 }
 body {
-  min-height: 100vh;
   display: grid;
   place-items: center;
   padding:
-    max(22px, env(safe-area-inset-top))
-    16px
-    max(22px, env(safe-area-inset-bottom));
-  color: var(--label);
-  background:
-    radial-gradient(800px 430px at 50% -100px, rgba(0, 122, 255, .12), transparent 65%),
-    var(--system-background);
+    max(10px, env(safe-area-inset-top))
+    12px
+    max(10px, env(safe-area-inset-bottom));
+  color: var(--text);
+  background: var(--bg);
   font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", sans-serif;
   -webkit-font-smoothing: antialiased;
 }
 .card {
   width: min(100%, 430px);
+  height: min(790px, calc(100dvh - 20px));
+  display: flex;
+  flex-direction: column;
   overflow: hidden;
-  border: 1px solid var(--separator);
-  border-radius: 30px;
-  background: rgba(255, 255, 255, .72);
-  box-shadow: var(--shadow);
+  padding: 18px 12px 12px;
+  border: 1px solid var(--line);
+  border-radius: 28px;
+  background: rgba(255,255,255,.76);
+  box-shadow: 0 14px 40px rgba(0,0,0,.10);
   backdrop-filter: blur(28px) saturate(180%);
   -webkit-backdrop-filter: blur(28px) saturate(180%);
 }
 @media (prefers-color-scheme: dark) {
-  .card { background: rgba(28, 28, 30, .82); }
+  .card {
+    background: rgba(28,28,30,.88);
+    box-shadow: 0 14px 40px rgba(0,0,0,.40);
+  }
 }
 .profile {
-  padding: 30px 20px 26px;
+  flex: 0 0 auto;
+  padding: 0 10px 15px;
   text-align: center;
 }
 .avatar {
-  width: 92px;
-  height: 92px;
+  width: clamp(62px, 9.5vh, 82px);
+  height: clamp(62px, 9.5vh, 82px);
   display: grid;
   place-items: center;
-  margin: 0 auto 15px;
-  border: 3px solid rgba(255, 255, 255, .92);
+  margin: 0 auto 10px;
+  border: 3px solid rgba(255,255,255,.90);
   border-radius: 50%;
   color: #fff;
   background: linear-gradient(145deg, #4a4a4f, #1c1c1e);
-  box-shadow: 0 8px 18px rgba(0, 0, 0, .20);
-  font-size: 31px;
+  box-shadow: 0 6px 16px rgba(0,0,0,.20);
+  font-size: clamp(23px, 3.4vh, 29px);
   font-weight: 700;
   letter-spacing: -.08em;
 }
 h1 {
-  font-size: 30px;
-  line-height: 1.1;
+  font-size: clamp(24px, 3.5vh, 29px);
+  line-height: 1.08;
   font-weight: 700;
   letter-spacing: -.045em;
 }
@@ -99,79 +103,78 @@ h1 {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 7px;
-  margin-top: 9px;
-  color: var(--secondary-label);
-  font-size: 14px;
+  gap: 6px;
+  margin-top: 7px;
+  color: var(--muted);
+  font-size: clamp(12px, 1.8vh, 14px);
 }
 .online {
   width: 8px;
   height: 8px;
   border-radius: 50%;
   background: var(--green);
-  box-shadow: 0 0 0 3px rgba(52, 199, 89, .16);
+  box-shadow: 0 0 0 3px rgba(52,199,89,.15);
 }
 .section-title {
-  margin: 0 20px 8px;
-  color: var(--secondary-label);
-  font-size: 12px;
+  flex: 0 0 auto;
+  margin: 0 10px 6px;
+  color: var(--muted);
+  font-size: 11px;
   font-weight: 600;
   letter-spacing: .02em;
   text-transform: uppercase;
 }
 .list {
+  flex: 0 0 auto;
   overflow: hidden;
-  margin: 0 12px 12px;
-  border: 1px solid var(--separator);
-  border-radius: 18px;
-  background: var(--grouped-background);
+  margin-bottom: 9px;
+  border: 1px solid var(--line);
+  border-radius: 17px;
+  background: var(--card);
 }
 .row {
   position: relative;
   display: flex;
   align-items: center;
-  gap: 13px;
+  gap: 12px;
   width: 100%;
-  min-height: 68px;
-  padding: 11px 14px;
+  min-height: clamp(54px, 7.5vh, 64px);
+  padding: 8px 12px;
   border: 0;
-  color: var(--label);
+  color: var(--text);
   background: transparent;
   font: inherit;
   text-align: left;
   text-decoration: none;
   cursor: pointer;
-  transition: background .15s ease, transform .18s cubic-bezier(.2, .8, .2, 1);
+  transition: transform .18s cubic-bezier(.2,.8,.2,1), background .15s ease;
 }
 .row + .row::before {
   content: "";
   position: absolute;
   top: 0;
   right: 0;
-  left: 67px;
+  left: 60px;
   height: 1px;
-  background: var(--separator);
+  background: var(--line);
 }
-.row:hover {
-  background: rgba(120, 120, 128, .08);
-}
-.row:active {
-  transform: scale(.985);
-  background: rgba(120, 120, 128, .15);
+.row:active, .action:active {
+  transform: scale(.97);
+  background: rgba(120,120,128,.13);
 }
 .icon {
-  width: 40px;
-  height: 40px;
-  flex: 0 0 40px;
+  width: clamp(34px, 5.5vh, 40px);
+  height: clamp(34px, 5.5vh, 40px);
+  flex: 0 0 clamp(34px, 5.5vh, 40px);
   display: grid;
   place-items: center;
   border-radius: 11px;
   color: #fff;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .25);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.25);
 }
 .icon svg {
-  width: 22px;
-  height: 22px;
+  width: 21px;
+  height: 21px;
   fill: currentColor;
 }
 .i-contact { background: var(--blue); }
@@ -189,15 +192,15 @@ h1 {
 }
 .row-copy strong {
   display: block;
-  font-size: 16px;
+  font-size: clamp(14px, 2.1vh, 16px);
   font-weight: 500;
 }
 .row-copy small {
   display: block;
   overflow: hidden;
-  margin-top: 3px;
-  color: var(--secondary-label);
-  font-size: 12.5px;
+  margin-top: 2px;
+  color: var(--muted);
+  font-size: clamp(11px, 1.65vh, 12.5px);
   text-overflow: ellipsis;
   white-space: nowrap;
 }
@@ -205,70 +208,67 @@ h1 {
   width: 8px;
   height: 8px;
   margin-right: 4px;
-  border-top: 1.5px solid var(--secondary-label);
-  border-right: 1.5px solid var(--secondary-label);
+  border-top: 1.5px solid var(--muted);
+  border-right: 1.5px solid var(--muted);
   transform: rotate(45deg);
 }
 .grid {
+  flex: 1 1 auto;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 10px;
-  padding: 0 12px 12px;
+  grid-template-rows: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  min-height: 0;
 }
 .action {
-  min-height: 118px;
+  min-height: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 11px;
-  padding: 16px 8px;
-  border: 1px solid var(--separator);
-  border-radius: 18px;
-  color: var(--label);
-  background: var(--grouped-background);
+  gap: clamp(5px, 1vh, 9px);
+  padding: 7px 6px;
+  border: 1px solid var(--line);
+  border-radius: 17px;
+  color: var(--text);
+  background: var(--card);
   font: inherit;
-  font-size: 14px;
+  font-size: clamp(12px, 1.9vh, 14px);
   font-weight: 500;
-  line-height: 1.25;
+  line-height: 1.2;
   text-align: center;
   text-decoration: none;
   cursor: pointer;
-  transition: transform .22s cubic-bezier(.2, .8, .2, 1), box-shadow .22s ease;
+  transition: transform .22s cubic-bezier(.2,.8,.2,1);
 }
 .action:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 18px rgba(0, 0, 0, .10);
-}
-.action:active {
-  transform: scale(.965);
+  box-shadow: 0 7px 16px rgba(0,0,0,.09);
 }
 .toast {
   position: fixed;
   z-index: 5;
-  bottom: max(24px, env(safe-area-inset-bottom));
+  bottom: max(18px, env(safe-area-inset-bottom));
   left: 50%;
   max-width: calc(100vw - 32px);
-  padding: 12px 16px;
-  border: 1px solid rgba(255, 255, 255, .15);
+  padding: 11px 15px;
+  border: 1px solid rgba(255,255,255,.15);
   border-radius: 14px;
   color: #fff;
-  background: rgba(28, 28, 30, .94);
-  box-shadow: 0 10px 32px rgba(0, 0, 0, .25);
-  font-size: 14px;
-  font-weight: 500;
+  background: rgba(28,28,30,.94);
+  box-shadow: 0 10px 32px rgba(0,0,0,.25);
+  font-size: 13px;
   text-align: center;
   opacity: 0;
-  transform: translate(-50%, 20px) scale(.96);
+  transform: translate(-50%,16px) scale(.96);
   pointer-events: none;
-  transition: opacity .28s ease, transform .45s cubic-bezier(.16, 1, .3, 1);
+  transition: opacity .25s ease, transform .42s cubic-bezier(.16,1,.3,1);
 }
 .toast.show {
   opacity: 1;
-  transform: translate(-50%, 0) scale(1);
+  transform: translate(-50%,0) scale(1);
 }
 .reveal {
-  animation: reveal .65s cubic-bezier(.16, 1, .3, 1) both;
+  animation: reveal .55s cubic-bezier(.16,1,.3,1) both;
 }
 .r1 { animation-delay: .03s; }
 .r2 { animation-delay: .08s; }
@@ -276,13 +276,14 @@ h1 {
 .r4 { animation-delay: .18s; }
 .r5 { animation-delay: .23s; }
 @keyframes reveal {
-  from { opacity: 0; transform: translateY(16px) scale(.98); }
+  from { opacity: 0; transform: translateY(12px) scale(.98); }
   to { opacity: 1; transform: none; }
 }
-@media (max-width: 370px) {
-  body { padding-right: 8px; padding-left: 8px; }
-  .card { border-radius: 25px; }
-  h1 { font-size: 27px; }
+@media (max-height: 650px) {
+  .card { padding-top: 12px; }
+  .profile { padding-bottom: 10px; }
+  .section-title { margin-bottom: 4px; }
+  .list { margin-bottom: 6px; }
 }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
@@ -291,12 +292,10 @@ h1 {
   }
 }
 </style>
-<base target="_blank">
 </head>
 
 <body>
 
-<!-- SVG-иконки в стиле SF Symbols -->
 <svg width="0" height="0" style="position:absolute;overflow:hidden">
   <symbol id="person" viewBox="0 0 24 24"><path d="M12 12a5 5 0 1 0 0-10 5 5 0 0 0 0 10Zm0 2c-4.4 0-8 2.3-8 5v3h16v-3c0-2.7-3.6-5-8-5Z"/></symbol>
   <symbol id="home" viewBox="0 0 24 24"><path d="m12 3 9 8h-3v9h-4v-6h-4v6H6v-9H3l9-8Z"/></symbol>
@@ -318,7 +317,7 @@ h1 {
   <p class="section-title reveal r2">Контакт</p>
 
   <div class="list reveal r2">
-    <button class="row" onclick="downloadVCard()">
+    <button class="row" type="button" onclick="downloadVCard()">
       <span class="icon i-contact"><svg><use href="#person"/></svg></span>
       <span class="row-copy">
         <strong>Добавить в контакты</strong>
@@ -327,14 +326,14 @@ h1 {
       <span class="chevron"></span>
     </button>
 
-    <a class="row" href="https://www.google.com/maps/search/?api=1&query=Strada+Maria+Dr%C4%83gan+22%2F1%2C+Chi%C8%99in%C4%83u" target="_blank" rel="noopener">
+    <button class="row" type="button" onclick="openOwnerMap()">
       <span class="icon i-home"><svg><use href="#home"/></svg></span>
       <span class="row-copy">
         <strong>Вернуть карточку владельцу</strong>
         <small>Strada Maria Drăgan 22/1, Chișinău</small>
       </span>
       <span class="chevron"></span>
-    </a>
+    </button>
   </div>
 
   <div class="grid">
@@ -363,7 +362,7 @@ h1 {
       Перевести деньги
     </a>
 
-    <button class="action reveal r5" onclick="shareFoundLocation()">
+    <button class="action reveal r5" type="button" onclick="shareFoundLocation()">
       <span class="icon i-location"><svg><use href="#location"/></svg></span>
       Карта найдена<br>здесь
     </button>
@@ -373,6 +372,21 @@ h1 {
 <div class="toast" id="toast"></div>
 
 <script>
+function openOwnerMap() {
+  const address = 'Strada Maria Drăgan 22/1, Chișinău';
+  const destination = encodeURIComponent(address);
+
+  const isAppleDevice =
+    /iPhone|iPad|iPod/i.test(navigator.userAgent) ||
+    (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+
+  const mapsUrl = isAppleDevice
+    ? `https://maps.apple.com/directions?destination=${destination}`
+    : `https://www.google.com/maps/dir/?api=1&destination=${destination}`;
+
+  window.location.href = mapsUrl;
+}
+
 function downloadVCard() {
   const vcf = [
     'BEGIN:VCARD',
@@ -420,7 +434,10 @@ function shareFoundLocation() {
       try {
         const res = await fetch('https://formsubmit.co/ajax/23ba987e96aeb96429b2c061ad8e86ef', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
           body: JSON.stringify({
             _subject: '📍 NFC-карта найдена!',
             _template: 'table',
@@ -449,12 +466,16 @@ function shareFoundLocation() {
 }
 
 let toastTimer;
+
 function showToast(message) {
   const toast = document.getElementById('toast');
   toast.textContent = message;
   toast.classList.add('show');
+
   clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => toast.classList.remove('show'), 3500);
+  toastTimer = setTimeout(() => {
+    toast.classList.remove('show');
+  }, 3500);
 }
 </script>
 
